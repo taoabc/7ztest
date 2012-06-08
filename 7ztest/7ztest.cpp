@@ -63,7 +63,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
   ArchiveExtractCallBack* extract_callback_spec = new ArchiveExtractCallBack;
   CMyComPtr<IArchiveExtractCallback> extract_callback(extract_callback_spec);
-  extract_callback_spec->Init(archive, L"E:\\temp\\a");
+  extract_callback_spec->Init(archive, L"c:\\windows\\asdfasdf");
 
   HRESULT result = archive->Extract(NULL, (UInt32)(Int32)-1, false, extract_callback);
   if (result != S_OK) {
