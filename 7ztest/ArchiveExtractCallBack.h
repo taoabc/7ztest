@@ -16,6 +16,8 @@ class ArchiveExtractCallBack :
 
 public:
 
+  void Init(IInArchive* archive_handler, const std::wstring& directory_paty);
+
   MY_UNKNOWN_IMP1(ICryptoGetTextPassword)
   
   //IProgress
@@ -24,7 +26,7 @@ public:
 
   //IArchiveExtractCallBack
   STDMETHOD(GetStream)(UInt32 index, ISequentialOutStream **out_stream, Int32 ask_extract_mode);
-  STDMETHOD(PrepareOperation)(Int32 ask_extrack_mode);
+  STDMETHOD(PrepareOperation)(Int32 ask_extract_mode);
   STDMETHOD(SetOperationResult)(Int32 operation_result);
 
   //ICryptoGetTextPassword
@@ -48,7 +50,12 @@ private:
   CMyComPtr<IInArchive> archive_handler_;
   OutFileStream* out_filestream_spec_;
   CMyComPtr<ISequentialOutStream> out_filestream_;
-  std::wstring file_path_;
+
+  std::wstring file_path_; //name inside archive
+  std::wstring directory_path_; //output directory
+  std::wstring disk_file_path_; //full path to file on disk
+
+  bool extract_mode_;
 
   static const wchar_t* kEmptyFileAlias_;
 

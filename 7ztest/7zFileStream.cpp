@@ -42,6 +42,10 @@ STDMETHODIMP InFileStream::GetSize(UInt64 *size) {
   return S_OK;
 }
 
+bool OutFileStream::Create(const std::wstring& filename, bool create_always) {
+  return file_.Create(filename, create_always);
+}
+
 STDMETHODIMP OutFileStream::Write(const void*data, UInt32 size, UInt32* processed_size) {
   DWORD real_processed;
   bool result = file_.WritePart(data, size, &real_processed);
@@ -72,4 +76,14 @@ STDMETHODIMP OutFileStream::SetSize(UInt64 new_size) {
   unsigned __int64 current_pos2;
   result = result && file_.Seek(current_pos, &current_pos2);
   return result ? S_OK : E_FAIL;
+}
+
+bool OutFileStream::SetMTime( const FILETIME* mtime )
+{
+  return file_.SetFileTime(NULL, NULL, mtime);
+}
+
+HRESULT OutFileStream::Close( void )
+{
+  return ConvertBoolToHRESULT(file_.Close());
 }

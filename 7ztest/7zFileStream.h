@@ -38,6 +38,10 @@ class OutFileStream :
 
 public:
 
+  bool Create(const std::wstring& filename, bool create_always);
+  bool SetMTime(const FILETIME* mtime);
+  HRESULT Close(void);
+
   MY_UNKNOWN_IMP1(IOutStream)
 
   STDMETHOD(Write)(const void*data, UInt32 size, UInt32* processed_size);

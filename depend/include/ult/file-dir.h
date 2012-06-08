@@ -138,6 +138,20 @@ inline bool MakeSureFolderExist(const std::wstring& folder_path) {
   return ret;
 }
 
+inline bool DeleteFileAlways(const std::wstring& filename) {
+  if (::SetFileAttributes(filename.c_str(), 0) == 0) {
+    return false;
+  }
+  if (::DeleteFile(filename.c_str()) == 0) {
+    return false;
+  }
+  return true;
+}
+
+inline bool SetFileAttributes(const std::wstring& filename, DWORD file_attributes) {
+  return (::SetFileAttributes(filename.c_str(), file_attributes) != 0);
+}
+
 } //namespace filedir
 
 using namespace filedir;
