@@ -165,6 +165,7 @@ STDMETHODIMP ArchiveExtractCallBack::PrepareOperation(Int32 ask_extract_mode) {
 STDMETHODIMP ArchiveExtractCallBack::SetOperationResult(Int32 operation_result) {
   if (out_filestream_ != NULL) {
     if (processed_fileinfo_.mtime_defined) {
+      //set modified time back, otherwise there were be currenttime
       out_filestream_spec_->SetMTime(&processed_fileinfo_.mtime);
     }
     RINOK(out_filestream_spec_->Close());
